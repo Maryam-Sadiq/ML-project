@@ -25,10 +25,10 @@ st.write("Analyzing and predicting house prices from a fixed CSV file.")
 
 # ----------------- Load Dataset -----------------
 # Upload your file
-data = pd.read_csv("housing.csv")
+df = pd.read_csv("housing.csv")
 
 st.subheader("Dataset Preview")
-st.dataframe(data.head())
+st.dataframe(df.head())
 
 import streamlit as st
 
@@ -50,7 +50,7 @@ full_forms = {
     "PRICE": "Median Value of Owner-Occupied Homes"
 }
 
-st.title("House Price Dataset – Column Full Forms")
+st.subheader("House Price Dataset – Column Full Forms")
 
 for col in df.columns:
     st.write(f"*{col}* : {full_forms.get(col, 'Full form not found')}")
@@ -58,19 +58,19 @@ for col in df.columns:
 # ----------------- Dataset Info -----------------
 st.subheader("Dataset Info")
 buffer = io.StringIO()
-data.info(buf=buffer)
+df.info(buf=buffer)
 info_df = buffer.getvalue()
 st.text(info_df)
 
 st.subheader("Dataset Description")
-st.write(data.describe())
+st.write(df.describe())
 
 st.subheader("Dataset Shape & Missing Values")
-st.write(f"Shape: {data.shape}")
-st.write(data.isnull().sum())
+st.write(f"Shape: {df.shape}")
+st.write(df.isnull().sum())
 
 st.subheader("Unique Values per Column")
-st.write(data.nunique())
+st.write(df.nunique())
 
 # Duplicate rows
 st.subheader("Duplicate Rows")
@@ -82,15 +82,15 @@ st.write("duplicate rows",df.duplicate().sum())
 # ----------------- Correlation Heatmap -----------------
 st.subheader("Correlation Heatmap")
 fig, ax = plt.subplots(figsize=(8,6))
-sns.heatmap(data.corr(), annot=True, fmt=".2f", cmap="Greens", ax=ax)
+sns.heatmap(df.corr(), annot=True, fmt=".2f", cmap="Greens", ax=ax)
 st.pyplot(fig)
 
 # ----------------- Feature-Target Split -----------------
 if 'PRICE' not in data.columns:
     st.error("Target column 'PRICE' not found in dataset!")
 else:
-    X = data.drop('PRICE', axis=1)
-    y = data['PRICE']
+    X = df.drop('PRICE', axis=1)
+    y = df['PRICE']
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
@@ -185,5 +185,6 @@ else:
 
     st.subheader("Model Comparison (R²)")
     st.dataframe(models_df)
+
 
 
