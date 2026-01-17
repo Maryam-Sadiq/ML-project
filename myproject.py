@@ -86,7 +86,7 @@ sns.heatmap(df.corr(), annot=True, fmt=".2f", cmap="Greens", ax=ax)
 st.pyplot(fig)
 
 # ----------------- Feature-Target Split -----------------
-if 'PRICE' not in data.columns:
+if 'PRICE' not in df.columns:
     st.error("Target column 'PRICE' not found in dataset!")
 else:
     X = df.drop('PRICE', axis=1)
@@ -185,6 +185,7 @@ else:
 
     st.subheader("Model Comparison (R²)")
     st.dataframe(models_df)
+
 
 
 
