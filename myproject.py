@@ -77,7 +77,7 @@ st.subheader("Duplicate Rows")
 
 duplicates = df[df.duplicated()]
 st.write(duplicates)
-st.write("duplicate rows",df.duplicate().sum())
+st.write("duplicate rows",df.duplicated().sum())
 
 # ----------------- Correlation Heatmap -----------------
 st.subheader("Correlation Heatmap")
@@ -185,6 +185,7 @@ else:
 
     st.subheader("Model Comparison (R²)")
     st.dataframe(models_df)
+
 
 
 
