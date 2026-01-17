@@ -30,6 +30,31 @@ data = pd.read_csv("housing.csv")
 st.subheader("Dataset Preview")
 st.dataframe(data.head())
 
+import streamlit as st
+
+# ----------dictionary of column full form---------
+full_forms = {
+    "CRIM": "Per Capita Crime Rate by Town",
+    "ZN": "Proportion of Residential Land Zoned for Large Plots",
+    "INDUS": "Proportion of Non-Retail Business Acres per Town",
+    "CHAS": "Charles River Dummy Variable",
+    "NOX": "Nitric Oxide Concentration",
+    "RM": "Average Number of Rooms per Dwelling",
+    "AGE": "Proportion of Owner-Occupied Units Built Before 1940",
+    "DIS": "Weighted Distance to Employment Centers",
+    "RAD": "Index of Accessibility to Radial Highways",
+    "TAX": "Full-Value Property Tax Rate",
+    "PTRATIO": "Pupil–Teacher Ratio by Town",
+    "B": "Proportion of Black Population",
+    "LSTAT": "Percentage of Lower Status Population",
+    "PRICE": "Median Value of Owner-Occupied Homes"
+}
+
+st.title("House Price Dataset – Column Full Forms")
+
+for col in df.columns:
+    st.write(f"*{col}* : {full_forms.get(col, 'Full form not found')}")
+
 # ----------------- Dataset Info -----------------
 st.subheader("Dataset Info")
 buffer = io.StringIO()
@@ -46,6 +71,13 @@ st.write(data.isnull().sum())
 
 st.subheader("Unique Values per Column")
 st.write(data.nunique())
+
+# Duplicate rows
+st.subheader("Duplicate Rows")
+
+duplicates = df[df.duplicated()]
+st.write(duplicates)
+st.write("duplicate rows",df.duplicate().sum())
 
 # ----------------- Correlation Heatmap -----------------
 st.subheader("Correlation Heatmap")
@@ -153,4 +185,5 @@ else:
 
     st.subheader("Model Comparison (R²)")
     st.dataframe(models_df)
+
 
